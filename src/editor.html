@@ -1,0 +1,143 @@
+<div class="editor-row">
+	<div class="section gf-form-group">
+		<h5 class="section-heading">General</h5>
+		<div class="gf-form">
+			<span class="gf-form-label width-8">Widget</span>
+			<div class="gf-form-select-wrapper max-width-10">
+				<select class="gf-form-input" ng-model="ctrl.panel.config.widget" ng-options="v for v in ['Radial', 'RadialBargraph', 'RadialVertical', 'Linear', 'LinearBargraph', 'DisplaySingle', 'DisplayMulti', 'Level', 'Compass', 'WindDirection', 'Horizon', 'Led', 'Clock', 'Altimeter', 'Odometer']" ng-change="ctrl.render(true)"></select>
+			</div>
+		</div>
+
+		<!-- Width and Height-->
+		<div class="gf-form-inline">
+			<div class="gf-form max-width-10">
+				<label class="gf-form-label width-5">Height</label>
+				<input type="number" step="10" class="gf-form-input" empty-to-null ng-model="ctrl.panel.config.height" ng-change="ctrl.render()">
+			</div>
+			<div class="gf-form max-width-10" ng-show="ctrl.panel.config.dimensionsEqual == false">
+				<label class="gf-form-label width-5">Width</label>
+				<input type="number" step="10" class="gf-form-input" empty-to-null ng-model="ctrl.panel.config.width" ng-change="ctrl.render()">
+			</div>
+
+		</div>
+
+		<!--Title String-->
+		<div class="gf-form" ng-show="ctrl.panel.currentGauge.setTitleString !== undefined">
+			<span class="gf-form-label width-8">Title</span>
+			<input type="text" class="gf-form-input max-width-10" ng-model="ctrl.panel.config.titleString" ng-change="ctrl.render()">
+		</div>
+
+		<!--Unit String-->
+		<div class="gf-form" ng-show="ctrl.panel.currentGauge.setUnitString !== undefined">
+			<span class="gf-form-label width-8">Unit String</span>
+			<input type="text" class="gf-form-input max-width-10" ng-model="ctrl.panel.config.unitString" ng-change="ctrl.render()">
+		</div>
+
+		<!--Threshold-->
+		<div class="gf-form" ng-show="ctrl.panel.currentGauge.setThreshold !== undefined">
+			<span class="gf-form-label width-8">Threshold</span>
+			<input type="number" class="gf-form-input max-width-10" ng-model="ctrl.panel.config.threshold" ng-change="ctrl.render()">
+		</div>
+
+		<!--Min Max Values REVIEW-->
+		<div class="gf-form-inline">
+			<div class="gf-form max-width-10" ng-show="ctrl.panel.currentGauge.setMinValue !== undefined">
+				<label class="gf-form-label width-5">Axis Min</label>
+				<input type="number" step="10" class="gf-form-input" placeholder="auto" empty-to-null ng-model="ctrl.panel.config.minValue" ng-change="ctrl.render()">
+			</div>
+			<div class="gf-form max-width-10" ng-show="ctrl.panel.currentGauge.setMaxValue !== undefined">
+				<label class="gf-form-label width-5">Axis Max</label>
+				<input type="number" step="10" class="gf-form-input" placeholder="auto" empty-to-null ng-model="ctrl.panel.config.maxValue" ng-change="ctrl.render()">
+			</div>
+		</div>
+
+
+	</div>
+
+	<div class="section gf-form-group">
+		<h5 class="section-heading">Design</h5>
+
+		<!--Radial types, 1/4, 1/2, 3/4, full-->
+		<div class="gf-form" ng-show="ctrl.panel.config.gaugeTypeCount.length != 0">
+			<span class="gf-form-label width-8">Type</span>
+			<div class="gf-form-select-wrapper max-width-10">
+				<select class="gf-form-input" ng-model="ctrl.panel.config.gaugeType" ng-change="ctrl.render(true)">
+					<option ng-repeat="a in ctrl.panel.config.gaugeTypeCount track by $index" value="TYPE{{$index+1}}">Type {{$index+1}}</option>
+				</select>
+			</div>
+		</div>
+
+		<!--Foreground-->
+		<div class="gf-form" ng-show="ctrl.panel.currentGauge.setForegroundType !== undefined">
+			<span class="gf-form-label width-8">Foreground</span>
+			<div class="gf-form-select-wrapper max-width-10">
+				<select class="gf-form-input" ng-model="ctrl.panel.config.foregroundType" ng-change="ctrl.render()">
+					<option value="{{key}}" data-ng-repeat="(key, value) in ctrl.panel.SteelseriesConstants.ForegroundType">
+						{{key}}
+					</option>
+				</select>
+			</div>
+		</div>
+
+		<!--Pointer Type-->
+		<div class="gf-form" ng-show="ctrl.panel.currentGauge.setPointerType !== undefined">
+			<span class="gf-form-label width-8">Pointer type</span>
+			<div class="gf-form-select-wrapper max-width-10">
+				<select class="gf-form-input" ng-model="ctrl.panel.config.pointerType" ng-change="ctrl.render()">
+					<option value="{{key}}" data-ng-repeat="(key, value) in ctrl.panel.SteelseriesConstants.PointerType">
+						{{key}}
+					</option>
+				</select>
+			</div>
+		</div>
+
+		<!--Frame Design-->
+		<div class="gf-form" ng-show="ctrl.panel.currentGauge.setFrameDesign !== undefined">
+			<span class="gf-form-label width-8">Frame Design</span>
+			<div class="gf-form-select-wrapper max-width-10">
+				<select class="gf-form-input" ng-model="ctrl.panel.config.frameDesign" ng-change="ctrl.render()">
+					<option value="{{key}}" data-ng-repeat="(key, value) in ctrl.panel.SteelseriesConstants.FrameDesign">
+						{{key}}
+					</option>
+				</select>
+			</div>
+		</div>
+
+		<!--Background Color-->
+		<div class="gf-form" ng-show="ctrl.panel.currentGauge.setBackgroundColor !== undefined">
+			<span class="gf-form-label width-8">Background color</span>
+			<div class="gf-form-select-wrapper max-width-10">
+				<select class="gf-form-input" ng-model="ctrl.panel.config.backgroundColor" ng-change="ctrl.render()">
+					<option value="{{key}}" data-ng-repeat="(key, value) in ctrl.panel.SteelseriesConstants.BackgroundColor">
+						{{key}}
+					</option>
+				</select>
+			</div>
+		</div>
+
+		<!--LCD Color-->
+		<div class="gf-form" ng-show="ctrl.panel.currentGauge.setLcdColor !== undefined">
+			<span class="gf-form-label width-8">LCD color</span>
+			<div class="gf-form-select-wrapper max-width-10">
+				<select class="gf-form-input" ng-model="ctrl.panel.config.lcdColor" ng-change="ctrl.render()">
+					<option value="{{key}}" data-ng-repeat="(key, value) in ctrl.panel.SteelseriesConstants.LcdColor">
+						{{key}}
+					</option>
+				</select>
+			</div>
+		</div>
+
+		<!--LED Color-->
+		<div class="gf-form" ng-show="ctrl.panel.currentGauge.setLedColor !== undefined">
+			<span class="gf-form-label width-8">LED color</span>
+			<div class="gf-form-select-wrapper max-width-10">
+				<select class="gf-form-input" ng-model="ctrl.panel.config.ledColor" ng-change="ctrl.render()">
+					<option value="{{key}}" data-ng-repeat="(key, value) in ctrl.panel.SteelseriesConstants.LedColor">
+						{{key}}
+					</option>
+				</select>
+			</div>
+		</div>
+
+	</div>
+</div>
